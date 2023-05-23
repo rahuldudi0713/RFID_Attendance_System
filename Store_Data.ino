@@ -1,5 +1,5 @@
 
-
+//  * Created By Hacki Tech / Rahul Dudi
 //  * ------------------------------------------------------------------------
 //  * Download Resources
 //  * ------------------------------------------------------------------------
@@ -47,14 +47,9 @@ void setup()
 
 void loop()
 {
-  //------------------------------------------------------------------------------
-  /* Prepare the key for authentication */
   for (byte i = 0; i < 6; i++){
     key.keyByte[i] = 0xFF;
   }
-  //------------------------------------------------------------------------------
-  /* Look for new cards */
-  /* Reset the loop if no new card is present on RC522 Reader */
   if ( ! mfrc522.PICC_IsNewCardPresent()){return;}
   //------------------------------------------------------------------------------
   /* Select one of the cards */
@@ -129,9 +124,6 @@ void loop()
 
 void WriteDataToBlock(int blockNum, byte blockData[]) 
 {
-   //Serial.print("Writing data on block ");
-   //Serial.println(blockNum);
-  //------------------------------------------------------------------------------
   /* Authenticating the desired data block for write access using Key A */
   status = mfrc522.PCD_Authenticate(MFRC522::PICC_CMD_MF_AUTH_KEY_A, blockNum, &key, &(mfrc522.uid));
   if (status != MFRC522::STATUS_OK){
@@ -143,7 +135,6 @@ void WriteDataToBlock(int blockNum, byte blockData[])
   else {
     //Serial.print("Authentication OK - ");
   }
-  //------------------------------------------------------------------------------
   /* Write data to the block */
   status = mfrc522.MIFARE_Write(blockNum, blockData, 16);
   if (status != MFRC522::STATUS_OK) {
@@ -159,16 +150,9 @@ void WriteDataToBlock(int blockNum, byte blockData[])
 
 void ReadDataFromBlock(int blockNum, byte readBlockData[]) 
 {
-   //Serial.print("Reading data from block ");
-   //Serial.println(blockNum);
-  //----------------------------------------------------------------------------
-  /* Prepare the ksy for authentication */
-  /* All keys are set to FFFFFFFFFFFFh at chip delivery from the factory */
   for (byte i = 0; i < 6; i++) {
     key.keyByte[i] = 0xFF;
   }
-  //------------------------------------------------------------------------------
-  /* Authenticating the desired data block for Read access using Key A */
   status = mfrc522.PCD_Authenticate(MFRC522::PICC_CMD_MF_AUTH_KEY_A, blockNum, &key, &(mfrc522.uid));
   //------------------------------------------------------------------------------
   if (status != MFRC522::STATUS_OK){
