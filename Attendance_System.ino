@@ -1,8 +1,8 @@
 /* ------------------------------------------------------------------------
- * Created by: Hacki Tech
+ * Created by: Hacki Tech/ Rahul Dudi
  * Created on: 17 May, 2023
  * Tutorial: * ------------------------------------------------------------------------
- * Download Resources
+ * Download Resources:-
  * HTTPS Redirect Library:
  * Example Arduino/ESP8266 code to upload data to Google Sheets
  * Follow setup instructions found here:
@@ -19,12 +19,12 @@
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 
 // Enter Google Script Deployment ID:
-const char *GScriptId = "AKfycbwU-ZwO8FXLYxIRcpwX5gMwXw509KJ7dCdcGNcTctyK9ahUR6C-Tc_z2gb4z7A9bjLb";
-String gate_number = "Main Gate"; //Define Entry Gate
+const char *GScriptId = "Deployment ID"; //Change ID
+String gate_number = "Gate Number"; //Chaneg Entry Gate According to you 
 
 // Enter network credentials:
-const char* ssid     = "LAB1";
-const char* password = "hacker667";
+const char* ssid     = "SSID";     //Set Wifi Name
+const char* password = "PASSWORD"; //Set Wifi Password
 
 // Enter command (insert_row or append_row) and your Google Sheets sheet name (default is Sheet1):
 String payload_base =  "{\"command\": \"insert_row\", \"sheet_name\": \"Sheet1\", \"values\": ";
@@ -191,7 +191,7 @@ void loop() {
   lcd.setCursor(0,0); //col=0 row=0
   lcd.print("  Scan your Tag");
   lcd.setCursor(0,1); //col=0 row=0
-  lcd.print("Owner-Rahul Dudi");
+  lcd.print("Hacki Tech");
   digitalWrite(WiFiPin, HIGH);
   //Serial.println("[TEST] Scan Your Tag");
   /* Initialize MFRC522 Module */
@@ -233,7 +233,7 @@ void loop() {
   lcd.clear();
   lcd.setCursor(0,0); //col=0 row=0
   lcd.print("Publishing Data");
-  lcd.setCursor(0,1); //col=0 row=0
+  lcd.setCursor(0,1); //col=0 row=1
   lcd.print("Please Wait...");
   //----------------------------------------------------------------
   // Publish data to Google Sheets
@@ -262,14 +262,12 @@ void loop() {
   // a delay of several seconds is required before publishing again    
   Serial.println("[TEST] delay(3000)");
   delay(3000);
-  // digitalWrite(WiFiPin, LOW);
   }
 
 void ReadDataFromBlock(int blockNum, byte readBlockData[]) 
 { 
 
   /* Prepare the key for authentication */
-  /* All keys are set to FFFFFFFFFFFFh at chip delivery from the factory */
   for (byte i = 0; i < 6; i++) {
     key.keyByte[i] = 0xFF;
   }
